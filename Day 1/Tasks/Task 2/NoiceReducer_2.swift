@@ -3,11 +3,9 @@ class NoiceReducer {
     var avgs = [Double]()
     var temps = [Double]()
     
-    func measure(_ value : Double) {
+    func measure(_ value : Double) -> Double {
         temps.append(value)
-    }
-    
-    func calculate() -> Double {
+        
         var avg = 0.0
         
         if temps.count < consecutiveAvgs {
@@ -21,6 +19,7 @@ class NoiceReducer {
         
         return avgs[avgs.count - 1]
     }
+    
     
     func getAll() -> [Double] {
         return avgs
@@ -38,33 +37,25 @@ class NoiceReducer {
 }
 
 var reducer = NoiceReducer()
-reducer.measure(21)
-
-var lastTemp = reducer.calculate()
+var lastTemp = reducer.measure(21)
 print(lastTemp)
 
-reducer.measure(22)
-lastTemp = reducer.calculate()
+lastTemp = reducer.measure(22)
 print(lastTemp)
 
-reducer.measure(20)
-lastTemp = reducer.calculate()
+lastTemp = reducer.measure(20)
 print(lastTemp)
 
-reducer.measure(24)
-lastTemp = reducer.calculate()
+lastTemp = reducer.measure(24)
 print(lastTemp)
 
-reducer.measure(18)
-lastTemp = reducer.calculate()
+lastTemp = reducer.measure(18)
 print(lastTemp)
 
-reducer.measure(21)
-lastTemp = reducer.calculate()
+lastTemp = reducer.measure(21)
 print(lastTemp)
 
-reducer.measure(19)
-lastTemp = reducer.calculate()
+lastTemp = reducer.measure(19)
 print(lastTemp)
 
 let allResults = reducer.getAll()
