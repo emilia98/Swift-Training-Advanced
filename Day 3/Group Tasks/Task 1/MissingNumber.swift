@@ -5,7 +5,7 @@ func findMissingNum(_ s: String) -> Int? {
         We will search for the missing number
         for each digit in range [1, maxNumLength]
     */
-    for numLength in 1 ...  maxNumLength {
+    for numLength in stride(from: maxNumLength, to: 0, by: -1) {
         if let num = genSeqence(s, numLength: numLength) {
             return num
         }
@@ -60,6 +60,7 @@ func isFirstNum(_ s: String, _ num : Int) -> Bool {
 }
 
 var testStrings = [
+    "123125126", // 124
     "2526282930", // 27
     "9101213", // 11
     "25272829", // 26
