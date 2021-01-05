@@ -4,18 +4,20 @@ enum OutOfRangeError : String, Error {
     case outOfRange = "Index out of range"
 }
 
-class Matrix {
+class Matrix<T> {
     var rows: Int
     var cols: Int
-    var arr : [Int]
+    var arr : [T]
+    var defaultValue: T
     
-    init(_ rows : Int, _ cols: Int) {
+    init(_ rows : Int, _ cols: Int, defaultValue : T) {
         self.rows = rows
         self.cols = cols
-        arr = Array(repeating: 0, count: rows * cols)
+        self.defaultValue = defaultValue
+        arr = Array(repeating: defaultValue, count: rows * cols)
     }
     
-    subscript(_ row: Int, _ col: Int) -> Int? {
+    subscript(_ row: Int, _ col: Int) -> T? {
         get {
             if hasError(row, col) {
                 return nil
@@ -48,7 +50,7 @@ class Matrix {
     }
     
     func rotate() -> Matrix {
-        var newM = Matrix(self.cols, self.rows)
+        var newM = Matrix(self.cols, self.rows, defaultValue: self.defaultValue)
         
         var index = 0
         for col in 0 ... cols - 1 {
@@ -63,7 +65,7 @@ class Matrix {
     }
     
     func transponse() -> Matrix {
-        var newM = Matrix(self.cols, self.rows)
+        var newM = Matrix(self.cols, self.rows, defaultValue: self.defaultValue)
         
         var index = 0
         
@@ -91,26 +93,7 @@ class Matrix {
     }
 }
 
-/*
-var m = Matrix(2, 4)
-m[1, 3] = 7
-
-if let num = m[1, 3] {
-    print(num)
-} else {
-    print(OutOfRangeError.outOfRange.rawValue)
-}
-
-if let num = m[1, 4] {
-    print(num)
-} else {
-    print(OutOfRangeError.outOfRange.rawValue)
-}
-
-m[3, 4] = 5
-m[1, 4] = 5
-*/
-var m = Matrix(2, 3)
+var m = Matrix(2, 3, defaultValue: 0)
 m[0, 0] = 1
 m[0, 1] = 2
 m[0, 2] = 3
@@ -125,7 +108,7 @@ rotatedM.show()
 var transponsedM = m.transponse()
 transponsedM.show()
 
-var m1 = Matrix(3, 3)
+var m1 = Matrix(3, 3, defaultValue: 0)
 m1[0, 0] = 1
 m1[0, 1] = 2
 m1[0, 2] = 3
@@ -142,3 +125,25 @@ rotatedM1.show()
 
 var transponsedM1 = m1.transponse()
 transponsedM1.show()
+
+var m2 = Matrix(2, 2, defaultValue: "")
+m2[0, 0] = "a"
+m2[0, 1] = "b"
+m2[1, 0] = "c"
+m2[1, 1] = "d"
+m2.show()
+
+var rotatedStringMatrix = m2.rotate()
+rotatedStringMatrix.show()
+
+var m3 = Matrix(3, 2, defaultValue: "")
+m3[0, 0] = "a"
+m3[0, 1] = "b"
+m3[1, 0] = "c"
+m3[1, 1] = "d"
+m3[2, 0] = "e"
+m3[2, 1] = "f"
+m3.show()
+
+var transponsedStringMatrix = m3.transponse()
+transponsedStringMatrix.show()
